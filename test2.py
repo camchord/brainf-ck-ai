@@ -210,3 +210,17 @@ end = time.time()
 print(result[0].numpy().decode('utf-8'), '\n\n' + '_'*80)
 
 print(f"\nRun time: {end - start}")
+
+tf.saved_model.save(one_step_model, 'one_step')
+one_step_reloaded = tf.saved_model.load('one_step')
+
+states = None
+next_char = tf.constant(['ROMEO:'])
+result = [next_char]
+
+for n in range(100):
+    next_char, states = one_step_reloaded.generate_one_step(
+        next_char, states=states)
+    result.append(next_char)
+
+print(tf.strings.join(result)[0].numpy().decode("utf-8"))
