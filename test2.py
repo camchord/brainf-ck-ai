@@ -18,17 +18,11 @@ print(text[:250])
 vocab = sorted(set(text))
 print('{} unique characters'.format(len(vocab)))
 
-example_texts = ['abcdefg', 'xyz']
-
-chars = tf.strings.unicode_split(example_texts, input_encoding='UTF-8')
 
 ids_from_chars = preprocessing.StringLookup(
     vocabulary=list(vocab))
-ids = ids_from_chars(chars)
 chars_from_ids = tf.keras.layers.experimental.preprocessing.StringLookup(
     vocabulary=ids_from_chars.get_vocabulary(), invert=True)
-
-chars = chars_from_ids(ids)
 
 
 def text_from_ids(ids):
