@@ -143,7 +143,7 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     filepath=checkpoint_prefix,
     save_weights_only=True)
 
-EPOCHS = 20
+EPOCHS = 10
 history = model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
 
 
