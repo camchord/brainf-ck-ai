@@ -8,8 +8,10 @@ import time
 physical_devices = tf.config.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
-path_to_file = tf.keras.utils.get_file(
-    'shakespeare.txt', 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
+# path_to_file = tf.keras.utils.get_file(
+#    'shakespeare.txt', 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
+
+path_to_file = "bf_code_combined.bf"
 
 # Read, then decode for py2 compat.
 text = open(path_to_file, 'rb').read().decode(encoding='utf-8')
@@ -140,7 +142,7 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     filepath=checkpoint_prefix,
     save_weights_only=True)
 
-EPOCHS = 10
+EPOCHS = 30
 history = model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
 
 
@@ -196,7 +198,7 @@ states = None
 next_char = tf.constant(['ROMEO:'])
 result = [next_char]
 
-for n in range(1000):
+for n in range(10000):
     next_char, states = one_step_model.generate_one_step(
         next_char, states=states)
     result.append(next_char)
@@ -214,10 +216,3 @@ one_step_reloaded = tf.saved_model.load('one_step')
 states = None
 next_char = tf.constant(['ROMEO:'])
 result = [next_char]
-
-for n in range(100):
-    next_char, states = one_step_reloaded.generate_one_step(
-        next_char, states=states)
-    result.append(next_char)
-
-print(tf.strings.join(result)[0].numpy().decode("utf-8"))
