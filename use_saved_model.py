@@ -5,6 +5,8 @@ import numpy as np
 import os
 import time
 
+physical_devices = tf.config.list_physical_devices('GPU')
+tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 class MyModel(tf.keras.Model):
     def __init__(self, vocab_size, embedding_dim, rnn_units):
