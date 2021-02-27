@@ -74,12 +74,18 @@ class OneStep(tf.keras.Model):
         return predicted_chars, states
 
 
-one_step_reloaded = tf.saved_model.load('one_step_btc')
-
-
-states = None
-next_char = tf.constant(['#include'])
-result = [next_char]
+print("Enter 1 to use brainfuck model, 2 to use bitcoin model")
+ans = int(input())
+if ans == 1:
+    one_step_reloaded = tf.saved_model.load('one_step')
+    states = None
+    next_char = tf.constant(['+++'])
+    result = [next_char]
+elif ans == 2:
+    one_step_reloaded = tf.saved_model.load('one_step_btc')
+    states = None
+    next_char = tf.constant(['#include'])
+    result = [next_char]
 
 for n in range(10000):
     next_char, states = one_step_reloaded.generate_one_step(
