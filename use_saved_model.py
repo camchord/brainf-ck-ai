@@ -76,11 +76,11 @@ class OneStep(tf.keras.Model):
         return predicted_chars, states
 
 
-one_step_reloaded = tf.saved_model.load('one_step')
+one_step_reloaded = tf.saved_model.load('one_step_btc')
 
 
 states = None
-next_char = tf.constant(['+++'])
+next_char = tf.constant(['#include'])
 result = [next_char]
 
 for n in range(10000):
