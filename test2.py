@@ -11,7 +11,8 @@ tf.config.experimental.set_memory_growth(physical_devices[0], True)
 # path_to_file = tf.keras.utils.get_file(
 #    'shakespeare.txt', 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
 
-path_to_file = "bf_code_combined.bf"
+#path_to_file = "bf_code_combined.bf"
+path_to_file = "btc_code_combined.cpp"
 
 # Read, then decode for py2 compat.
 text = open(path_to_file, 'rb').read().decode(encoding='utf-8')
@@ -195,7 +196,7 @@ one_step_model = OneStep(model, chars_from_ids, ids_from_chars)
 
 start = time.time()
 states = None
-next_char = tf.constant(['++'])
+next_char = tf.constant(['#include'])
 result = [next_char]
 
 for n in range(10000):
@@ -210,8 +211,8 @@ print(result[0].numpy().decode('utf-8'), '\n\n' + '_'*80)
 
 print(f"\nRun time: {end - start}")
 
-tf.saved_model.save(one_step_model, 'one_step')
-one_step_reloaded = tf.saved_model.load('one_step')
+tf.saved_model.save(one_step_model, 'one_step_btc')
+one_step_reloaded = tf.saved_model.load('one_step_btc')
 
 states = None
 next_char = tf.constant(['ROMEO:'])
