@@ -195,7 +195,7 @@ one_step_model = OneStep(model, chars_from_ids, ids_from_chars)
 
 start = time.time()
 states = None
-next_char = tf.constant(['ROMEO:'])
+next_char = tf.constant(['++'])
 result = [next_char]
 
 for n in range(10000):
